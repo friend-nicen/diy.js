@@ -108,8 +108,9 @@ export function chooseFile() {
         window.chooseFileInput.value = ""; 
         const input = window.chooseFileInput;
 
-        
-        input.accept = 'image
+
+        input.accept = 'image/*';
+
         input.onchange = () => {
             const file = input.files[0];
             if (file) {
