@@ -246,8 +246,6 @@ export default {
                 
                 const coords = that.filterCoords(getPosOfEvent(evt));
 
-                console.log(coords);
-
                 that._startPoint = coords[0]; 
                 that._eventTouch(coords); 
             },
