@@ -28,7 +28,7 @@ export default {
     _initStyle() {
         const bound = this.bound();
         const style = document.createElement('style');
-        const styleText = `.diyjs canvas {position: absolute;transform: translateZ(0);width:${bound._w}px;height: ${bound._h}px;left: 0;top: 0; }`;
+        const styleText = `.diyjs {position: relative;} .diyjs canvas {position: absolute;transform: translateZ(0);width:${bound._w}px;height: ${bound._h}px;left: 0;top: 0; }`;
         style.appendChild(document.createTextNode(styleText));
         document.head.appendChild(style);
     },
@@ -37,7 +37,7 @@ export default {
     _initBound() {
 
         this._elem.classList.add("diyjs");
-        
+
         const bound = this._elem.getBoundingClientRect();
 
 
