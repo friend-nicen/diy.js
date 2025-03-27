@@ -1,51 +1,45 @@
-
-
 import Action from "./action";
 
 export default class Do extends Action {
 
-    
+
     _draw() {
 
-        
-        const context = this.shape.getContext(); 
+
+        const context = this.shape.getContext();
         context.beginPath();
-        this.shape._rotate(); 
-        
+        this.shape._rotate();
+
         context.rect(this.x, this.y, this.w, this.h);
         context.closePath();
     }
 
 
-    
     draw() {
 
 
-        
-        
-        const context = this.shape.getContext(); 
+        const context = this.shape.getContext();
 
         let coords = this.shape.coords(this.corner);
 
         let {
             x,
             y
-        } = this._coords(coords); 
+        } = this._coords(coords);
 
 
-        
         context.save(true);
 
-        
+
         context.beginPath();
 
-        
+
         this.shape._rotate();
 
-        
+
         context.globalCompositeOperation = this.blendMode;
 
-        
+
         Object.assign(this, context.drawText({
             x: x,
             y: y,
@@ -65,16 +59,14 @@ export default class Do extends Action {
         }));
 
 
-        
         context.closePath();
-        
+
         context.restore();
     }
 
 
-    
     tap() {
-        
+
         this.shape.stage().emit('to-do', {type: 'to-do', shape: this.shape});
     }
 

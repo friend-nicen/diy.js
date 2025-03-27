@@ -1,4 +1,3 @@
-
 import {toFixed} from "./math";
 
 
@@ -12,7 +11,6 @@ export function getVector(p1, p2) {
 }
 
 
-
 export default function getVectorCenter(p1, p2) {
     const centerX = (p1.x + p2.x) / 2;
     const centerY = (p1.y + p2.y) / 2;
@@ -20,16 +18,14 @@ export default function getVectorCenter(p1, p2) {
 }
 
 
-
 export function getLength(v1) {
     return Math.sqrt(v1.x * v1.x + v1.y * v1.y);
 }
 
 
-
 export function getAngle(v1, v2) {
 
-    
+
     let direction = v1.x * v2.y - v2.x * v1.y > 0 ? 1 : -1;
 
     let len1 = getLength(v1);
@@ -39,7 +35,7 @@ export function getAngle(v1, v2) {
 
     if (mr === 0) return 0;
 
-    
+
     // cos =(x1 *x2 +y1*y2)/(lal * Ib1);
 
     dot = v1.x * v2.x + v1.y * v2.y;
@@ -48,12 +44,11 @@ export function getAngle(v1, v2) {
     if (r > 1) r = 1;
     if (r < -1) r = -1;
 
-    
+
     // 180 / Math.PI
     return Math.acos(r) * direction;
 
 }
-
 
 
 export function radToDegree(radians) {
@@ -61,42 +56,39 @@ export function radToDegree(radians) {
 }
 
 
-
 export function rotateVector(vector, angle, pivot) {
 
-    
+
     const x1 = vector.x - pivot.x;
     const y1 = vector.y - pivot.y;
 
-    
+
     const rad = angle * Math.PI / 180;
 
-    
+
     const x2 = x1 * Math.cos(rad) - y1 * Math.sin(rad);
     const y2 = x1 * Math.sin(rad) + y1 * Math.cos(rad);
 
-    
+
     return {x: toFixed(x2 + pivot.x, 3), y: toFixed(y2 + pivot.y, 3)};
 }
-
 
 
 export function reverseRotatePoint(vector, angle, pivot) {
-    
+
     const x1 = vector.x - pivot.x;
     const y1 = vector.y - pivot.y;
 
-    
+
     const rad = -angle * Math.PI / 180;
 
-    
+
     const x2 = x1 * Math.cos(rad) - y1 * Math.sin(rad);
     const y2 = x1 * Math.sin(rad) + y1 * Math.cos(rad);
 
-    
+
     return {x: toFixed(x2 + pivot.x, 3), y: toFixed(y2 + pivot.y, 3)};
 }
-
 
 
 export function getBoundingBox(rectangles) {
@@ -122,7 +114,6 @@ export function getBoundingBox(rectangles) {
 }
 
 
-
 export function getCoordsBox(coords) {
 
     let minX = Number.MAX_VALUE;
@@ -146,14 +137,12 @@ export function getCoordsBox(coords) {
 }
 
 
-
 export function scaleVector(v1, s) {
     return {
         x: v1.x * s,
         y: v1.y * s
     }
 }
-
 
 
 export function getCoordsByBound(bound) {
@@ -178,25 +167,24 @@ export function getCoordsByBound(bound) {
 }
 
 
-
 export function isOutBound(bound, coords) {
 
-    
+
     const left = bound.x;
-    
+
     const right = bound.x + bound.w;
-    
+
     const top = bound.y;
-    
+
     const bottom = bound.y + bound.h;
 
-    
+
     for (let i = 0; i < coords.length; i++) {
-        
+
         const point = coords[i];
-        
+
         if (point.x < left || point.x > right || point.y < top || point.y > bottom) {
-            
+
             return true;
         }
     }

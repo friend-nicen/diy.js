@@ -1,10 +1,9 @@
-
 export default {
 
-    
-    _listener: null, 
 
-    
+    _listener: null,
+
+
     on(event, listener) {
 
         if (typeof listener !== 'function') {
@@ -23,7 +22,7 @@ export default {
         }
     },
 
-    
+
     async emit(event, ...args) {
         if (this._listener.has(event)) {
             const listeners = this._listener.get(event);
@@ -39,7 +38,7 @@ export default {
 
     },
 
-    
+
     off(event, listener) {
 
         const events = Array.isArray(event) ? event : [event];
@@ -56,7 +55,7 @@ export default {
 
     },
 
-    
+
     removeAlllistener(event) {
         this._listener.delete(event);
     }

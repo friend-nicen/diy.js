@@ -1,6 +1,3 @@
-
-
-
 function getLen(v) {
     return Math.sqrt(v.x * v.x + v.y * v.y);
 }
@@ -31,8 +28,8 @@ function getRotateAngle(v1, v2) {
 }
 
 export function getUserAgent() {
-    
-    
+
+
     if (typeof global === 'undefined' || typeof window !== 'undefined') {
         if (/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent) || (navigator.maxTouchPoints &&
             navigator.maxTouchPoints > 2)) {
@@ -103,7 +100,7 @@ export default class BetterGesture {
         this.userAgent = getUserAgent()
         this.Observer = new Observer(this.element)
         if (this.userAgent === 'Mini') {
-            
+
             this.element.start = this.start.bind(this)
             this.element.move = this.move.bind(this)
             this.element.end = this.end.bind(this)
@@ -132,7 +129,7 @@ export default class BetterGesture {
             this.element.addEventListener("mouseleave", this.mouseLeave, false)
         }
 
-        
+
         this.Observer.register('start', option.start)
         this.Observer.register('end', option.end)
         this.Observer.register('pressMove', option.pressMove)
@@ -141,7 +138,7 @@ export default class BetterGesture {
         this.Observer.register('doubleTap', option.doubleTap)
         this.Observer.register('longTap', option.longTap)
         this.Observer.register('singleTap', option.singleTap)
-        
+
         if (this.userAgent === 'Mobile' || this.userAgent === 'Mini') {
             this.Observer.register('touchStart', option.touchStart)
             this.Observer.register('touchMove', option.touchMove)
@@ -153,7 +150,7 @@ export default class BetterGesture {
             this.Observer.register('twoFingerPressMove', option.twoFingerPressMove)
             this.Observer.register('rotate', option.rotate)
         } else {
-            
+
             this.Observer.register("mouseDown", option.mouseDown);
             this.Observer.register("mouseMove", option.mouseMove);
             this.Observer.register("mouseUp", option.mouseUp);
@@ -265,8 +262,8 @@ export default class BetterGesture {
             if (this.x2 !== null) {
                 evt.deltaX = currentX - this.x2;
                 evt.deltaY = currentY - this.y2;
-                
-                
+
+
                 let movedX = Math.abs(this.x1 - this.x2),
                     movedY = Math.abs(this.y1 - this.y2);
 
@@ -321,7 +318,7 @@ export default class BetterGesture {
                 if (!self._preventTap) {
                     self.Observer.dispatch('tap', evt);
                 }
-                
+
                 if (self.isDoubleTap) {
                     self.Observer.dispatch('doubleTap', evt)
                     self.isDoubleTap = false;
@@ -381,18 +378,18 @@ export default class BetterGesture {
         return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
     }
 
-    
+
     on(type, func) {
         this.Observer.register(type, func)
     }
 
-    
+
     off(type, func) {
         this.Observer.remove(type, func)
     }
 
     destroy() {
-        
+
         if (this.singleTapTimeout) clearTimeout(this.singleTapTimeout);
         if (this.tapTimeout) clearTimeout(this.tapTimeout);
         if (this.longTapTimeout) clearTimeout(this.longTapTimeout);
@@ -408,7 +405,7 @@ export default class BetterGesture {
         this.element.removeEventListener("mouseover", this.mouseOver);
         this.element.removeEventListener("mouseLeave", this.mouseLeave);
         this.Observer._Observer = {}
-        
+
         this.preV = this.pinchStartLen = this.zoom = this.isDoubleTap = this.delta = this.last = this.now = this.tapTimeout = this.lastTime = this.singleTapTimeout = this.longTapTimeout = this.swipeTimeout = this.x1 = this.x2 = this.y1 = this.y2 = this.preTapPosition = null;
         typeof window !== 'undefined' && window.removeEventListener('scroll', this._cancelAllHandler);
         return null;

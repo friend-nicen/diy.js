@@ -1,5 +1,3 @@
-
-
 import Shape from "../../proto/shape";
 import getVectorCenter from "../../utils/vector";
 import {percentToValue} from "../../utils/math";
@@ -7,35 +5,35 @@ import {percentToValue} from "../../utils/math";
 
 export default class Text extends Shape {
 
-    
+
     constructor(config = {}) {
 
-        
+
         super(Object.assign({
 
-            
-            x: null, 
-            y: null, 
+
+            x: null,
+            y: null,
 
             button_2_Text: "编辑",
-            canDo: true, 
-            canFlip: true, 
+            canDo: true,
+            canFlip: true,
 
-            
+
             _bound: {
-                x: null, 
-                y: null, 
-                w: null, 
-                h: null, 
+                x: null,
+                y: null,
+                w: null,
+                h: null,
             },
 
-            
+
             flip: {
                 x: 1,
                 y: 1
             },
 
-            
+
             maxWidth: 50,
             maxHeight: 50,
 
@@ -68,22 +66,21 @@ export default class Text extends Shape {
             lineSpacing: 0,
             spacingLeft: 1,
             spacingTop: 1,
-            type: "Text" 
+            type: "Text"
         }, config));
 
 
     }
 
 
-    
     _init() {
 
-        
+
         if (this._context) {
 
             const bound = this.getReference();
 
-            
+
             if (this.x && (typeof this.x) === 'string') {
                 this.x = percentToValue(this.x, bound._w) + bound._x;
             }
@@ -96,13 +93,13 @@ export default class Text extends Shape {
                 this.fontSize = percentToValue(this.fontSize, bound._h);
             }
 
-            
+
             this.x = this.x !== null ? this.x : (bound._w / 2 + bound._x);
             this.y = this.y !== null ? this.y : (bound._h / 2 + bound._y);
 
-            
+
             if (this.fontFamily !== 'Arial') {
-                
+
                 this.stage().emit('use-font', {
                     type: 'use-font',
                     shape: this,
@@ -113,16 +110,15 @@ export default class Text extends Shape {
         }
 
 
-        
         const that = this;
 
-        
+
         this.input = (text) => {
             that.text = text;
             that.render();
         };
 
-        
+
         this.append = (text) => {
             that.text += text;
             that.render();
@@ -131,48 +127,44 @@ export default class Text extends Shape {
     }
 
 
-    
     setFont(font) {
         this.fontFamily = font;
         this.render();
     }
 
 
-    
     getFlip() {
         if (!this.canFlip) {
-            return 0; 
+            return 0;
         } else if (this.flip.x < 0 && this.flip.y > 0) {
-            return 1; 
+            return 1;
         } else if (this.flip.x > 0 && this.flip.y < 0) {
-            return 2; 
+            return 2;
         } else if (this.flip.x < 0 && this.flip.y < 0) {
-            return 3; 
+            return 3;
         } else {
             return 0;
         }
     }
 
 
-    
     _flip() {
-        
+
         if (this._context && this.canFlip) {
             this._context.scale(this.flip.x, this.flip.y);
         }
-        
+
         return this.getFlip();
     }
 
 
-    
     _getFlip() {
 
-        
+
         const flip = this.getFlip();
         const {x, y, w, h} = this._bound;
 
-        
+
         if (flip === 0) {
             return {
                 _x: x,
@@ -198,15 +190,14 @@ export default class Text extends Shape {
     }
 
 
-    
     _getFlipText() {
 
-        
+
         const flip = this.getFlip();
-        
+
         const {x, y} = this;
 
-        
+
         if (flip === 0) {
             return {
                 _x: x,
@@ -232,10 +223,9 @@ export default class Text extends Shape {
     }
 
 
-    
     _draw() {
 
-        
+
         const context = this._context;
 
         let {
@@ -247,45 +237,42 @@ export default class Text extends Shape {
 
         context.beginPath();
 
-        this._rotate(); 
+        this._rotate();
 
-        
+
         context.rect(x, y, w, h);
         context.closePath();
     }
 
 
-    
     _rotate() {
 
-        
-        const context = this.getContext(); 
+
+        const context = this.getContext();
 
         let {
             x, y
         } = !!this._group ? this._group.getCenterPoint() : this.getCenterPoint();
 
-        
+
         if (this.rotateRadius !== 0) {
             context.translate(x, y);
-            context.rotate(this.rotateRadius); 
+            context.rotate(this.rotateRadius);
             context.translate(-x, -y);
         }
 
     }
 
 
-    
     scale(zoom, coords) {
 
 
-        
         if (!this._startBound) {
 
-            
+
             const center = this.stage().getLimit() && coords.length > 1 ? getVectorCenter(coords[0], coords[1]) : (!!this._group ? this._group.getCenterPoint() : this.getCenterPoint())
 
-            
+
             this._startBound = {
                 x: this.x,
                 y: this.y,
@@ -295,7 +282,7 @@ export default class Text extends Shape {
             };
         }
 
-        
+
         const {x, y, centerX, centerY, fontSize} = this._startBound;
 
         this.x = Math.floor(centerX - (centerX - x) * zoom);
@@ -303,66 +290,61 @@ export default class Text extends Shape {
 
         this.fontSize = fontSize * zoom;
 
-        
+
         this.emit("scale", {type: 'scale', coords, zoom, shape: this});
         this.stage().emit("scale", {type: 'scale', coords, zoom, shape: this});
 
-        
+
         this.render();
         return true;
     }
 
 
-    
     updateBound() {
-        
+
         this._bound = this._context.textBound(this);
     }
 
 
-    
     draw(flag = true) {
 
-        
-        
-        const context = this._context; 
 
-        
+        const context = this._context;
+
+
         context.beginPath();
 
-        
+
         context.save();
 
-        
-        if(context.setViewClip) context.setViewClip();
 
-        
+        if (context.setViewClip) context.setViewClip();
+
+
         context.globalCompositeOperation = this.blendMode;
 
-        
+
         this._bound = context.textBound(this);
 
-        this._rotate(); 
-        this._flip(); 
+        this._rotate();
+        this._flip();
 
         const {_x, _y} = this._getFlipText();
 
-        
+
         context.drawText(Object.assign(this.getConfig(), {
             x: _x,
             y: _y
         }));
 
 
-        
         if (this.textDecoration) {
 
-            
+
             let {w, h} = this.bound();
             let {_x, _y} = this._getFlip();
 
 
-            
             context.beginPath();
             context.strokeStyle = this.textColor;
             context.moveTo(_x + this.padding.left, _y + h - this.padding.bottom);
@@ -372,52 +354,44 @@ export default class Text extends Shape {
         }
 
 
-        
         if (this._group && this._group.actived) {
 
-            
+
             context.beginPath();
 
-            
+
             const config = this.stage().getConfig();
 
-            
+
             let {w, h} = this.bound();
             let {_x, _y} = this._getFlip();
 
 
-            
             context.strokeStyle = config.activeColor;
             context.setLineDash([2, 3]);
             context.lineWidth = 1;
             context.lineCap = "round";
             context.lineJoin = "round";
 
-            
+
             const gap = 2;
             context.strokeRect(_x - gap, _y - gap, w + gap * 2, h + gap * 2);
             context.closePath();
         }
 
 
-        
-
-        context.restore(); 
+        context.restore();
 
 
-        
-        
-        
-        
         if (flag && this.actived) {
-            const that = this; 
-            
+            const that = this;
+
             if (this.queue) {
                 this.stage().addQueueTask(() => {
-                    that._action.draw(); 
+                    that._action.draw();
                 })
             } else {
-                that._action.draw(); 
+                that._action.draw();
             }
         }
 
@@ -425,7 +399,6 @@ export default class Text extends Shape {
     }
 
 
-    
     coords(corner = null) {
 
         const {
@@ -452,24 +425,21 @@ export default class Text extends Shape {
     }
 
 
-    
     bound() {
         return this._bound;
     }
 
 
-    
     getText() {
         return this.text;
     }
 
 
-    
     relative() {
 
-        
+
         const bound = this.getReference();
-        this.updateBound(); 
+        this.updateBound();
 
         return {
             x: (((this.x - bound._x) / bound._w) * 100).toFixed(2) + "%",
@@ -482,10 +452,9 @@ export default class Text extends Shape {
     }
 
 
-    
     getConfig() {
 
-        
+
         const config = {
             text: "",
             fontSize: 16,
@@ -517,7 +486,7 @@ export default class Text extends Shape {
             spacingTop: 1
         };
 
-        
+
         for (let i in config) {
             if (!!this[i]) {
                 config[i] = this[i];

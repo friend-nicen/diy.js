@@ -1,11 +1,7 @@
-
-
-
-
 import Stage from "./stage";
 import Image from "./shape/image";
-import Text from "./shape/text"
-import Group from "./shape/group"
+import Text from "./shape/text";
+import Group from "./shape/group";
 
 
 export default {
@@ -16,6 +12,5 @@ export default {
 }
 
 
-
-export * from './utils/common'
-export * from './utils/vector'
+export * from './utils/common';
+export * from './utils/vector';

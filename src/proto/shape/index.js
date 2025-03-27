@@ -6,16 +6,16 @@ import State from './state'
 import Snap from './snap'
 
 class Shape {
-    
-    constructor(config) {
-        
-        
-        Object.assign(this, config); 
 
-        
+    constructor(config) {
+
+
+        Object.assign(this, config);
+
+
         this._listener = new Map();
 
-        
+
         this._previous = {
             x: null,
             y: null,

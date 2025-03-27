@@ -1,39 +1,35 @@
-
 export default {
 
-    
-    _listener: new Map(), 
-    _pauseEvent: [], 
 
-    
+    _listener: new Map(),
+    _pauseEvent: [],
+
+
     pauseEvent(event) {
-        
+
         if (this._pauseEvent.indexOf(event) === -1) {
             this._pauseEvent.push(event);
         }
     },
 
 
-    
     withEventPause(event, callback) {
         this.pauseEvent(event);
-        callback(); 
+        callback();
         this.resumeEvent(event);
     },
 
 
-    
     resumeEvent(event) {
-        
+
         const index = this._pauseEvent.indexOf(event)
-        
+
         if (index > -1) {
             this._pauseEvent.splice(index, 1);
         }
     },
 
 
-    
     on(event, listener, ignore = false) {
 
         if (typeof listener !== 'function') {
@@ -48,17 +44,17 @@ export default {
                 this._listener.set(i, []);
             }
 
-            
+
             if (this._listener.get(i).length === 0 || !ignore) {
                 this._listener.get(i).push(listener);
             }
         }
     },
 
-    
+
     async emit(event, ...args) {
 
-        
+
         if (this._pauseEvent.indexOf(event) > -1) {
             return;
         }
@@ -77,7 +73,7 @@ export default {
 
     },
 
-    
+
     off(event, listener) {
 
         const events = Array.isArray(event) ? event : [event];
@@ -94,7 +90,7 @@ export default {
 
     },
 
-    
+
     removeAlllistener(event) {
         this._listener.delete(event);
     }

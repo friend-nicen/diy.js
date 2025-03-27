@@ -1,7 +1,3 @@
-
-
-
-
 export function roundRect(context, x, y, w, h, r) {
     context.moveTo(x + r, y);
     context.lineTo(x + w - r, y);
@@ -15,10 +11,9 @@ export function roundRect(context, x, y, w, h, r) {
 }
 
 
-
 export function drawText(context, param) {
 
-    
+
     const config = Object.assign({
         text: "",
         x: 0,
@@ -50,23 +45,20 @@ export function drawText(context, param) {
         }
     }, param)
 
-    
+
     const bound = config._bound ? config._bound : textBound(context, param);
 
 
-    
     if (config.background) {
 
-        let {x, y, w, h} = bound; 
+        let {x, y, w, h} = bound;
 
 
-        
         context.save(false);
         context.fillStyle = config.backgroundColor;
         context.beginPath();
 
 
-        
         if (config.cornerRadius !== 0) {
 
             context.moveTo(x + config.cornerRadius, y);
@@ -81,16 +73,16 @@ export function drawText(context, param) {
             context.closePath();
 
         } else {
-            
+
             context.rect(x, y, w, h);
         }
 
 
         context.fill();
 
-        
+
         if (config.border > 0) {
-            context.enableImageSmoothingEnabled(); 
+            context.enableImageSmoothingEnabled();
             context.strokeStyle = config.borderColor;
             context.lineWidth = config.border
             context.stroke();
@@ -104,19 +96,16 @@ export function drawText(context, param) {
     let font = `${config.fontSize}px ${fontFamily}`;
 
 
-    
     if (config.bold) {
         font = "bold " + font;
     }
 
-    
+
     if (config.italic) {
         font = "italic " + font;
     }
 
 
-    
-    
     context.save(false);
     context.font = font;
     context.textAlign = config.textAlign;
@@ -124,65 +113,60 @@ export function drawText(context, param) {
     context.fillStyle = config.textColor;
 
 
-    
     const lines = !config.text ? [] : config.text.split("\n");
 
 
-    
     if (config.direction === 'horizontal') {
 
 
-        
         config.y = config.y - (bound.h - config.padding.top - config.padding.bottom) / 2 + (config.fontSize / 2);
 
 
-        
         for (let line of lines) {
 
             let width = 0;
             let words = line.split("");
 
-            
+
             for (let i = 0; i < words.length; i++) {
-                
+
                 let textMetrics = context.measureText(words[i]);
-                width += textMetrics.width; 
-                
+                width += textMetrics.width;
+
                 if (i > 0) {
                     width += config.spacingLeft;
                 }
             }
 
-            
+
             context.textAlign = "left";
 
 
-            let x; 
+            let x;
 
-            
+
             if (config.textAlign === "center") {
                 x = config.x - (width / 2);
             } else if (config.textAlign === "left") {
                 x = config.x - ((bound.w - config.padding.left - config.padding.right) / 2);
             } else if (config.textAlign === "right") {
                 const _width = (bound.w - config.padding.left - config.padding.right);
-                x = config.x - (_width / 2) + (_width - width); 
+                x = config.x - (_width / 2) + (_width - width);
             }
 
 
-            
             for (let i = 0; i < words.length; i++) {
 
-                
+
                 if (i > 0) {
                     x += config.spacingLeft;
                 }
 
                 context.fillText(words[i], x, config.y);
 
-                
+
                 let textMetrics = context.measureText(words[i]);
-                x += textMetrics.width; 
+                x += textMetrics.width;
 
             }
 
@@ -193,64 +177,61 @@ export function drawText(context, param) {
     } else {
 
 
-        
         config.x = config.x - (bound.w - config.padding.left - config.padding.right) / 2;
 
 
-        
         for (let line of lines) {
 
             let height = 0;
             let words = line.split("");
 
-            
+
             for (let i = 0; i < words.length; i++) {
-                height += config.fontSize; 
-                
+                height += config.fontSize;
+
                 if (i > 0) {
                     height += config.spacingTop;
                 }
             }
 
-            
+
             context.textAlign = "left";
             context.textBaseline = "top"
 
-            let y; 
+            let y;
 
 
-            
             if (config.textAlign === "center") {
                 y = config.y - (height / 2);
             } else if (config.textAlign === "left") {
                 y = config.y - ((bound.h - config.padding.top - config.padding.bottom) / 2);
             } else if (config.textAlign === "right") {
                 const _height = (bound.h - config.padding.top - config.padding.bottom);
-                y = config.y - (_height / 2) + (_height - height); 
+                y = config.y - (_height / 2) + (_height - height);
             }
 
 
-            let maxWidth = 0; 
+            let maxWidth = 0;
 
-            
+
             for (let i = 0; i < words.length; i++) {
 
-                
+
                 if (i > 0) {
                     y += config.spacingTop;
                 }
 
                 context.fillText(words[i], config.x, y);
 
-                
+
                 let textMetrics = context.measureText(words[i]);
 
-                
+
                 if (textMetrics.width > maxWidth) {
                     maxWidth = textMetrics.width;
                 }
 
-                y += config.fontSize; 
+                y += config.fontSize;
 
             }
 
@@ -267,11 +248,9 @@ export function drawText(context, param) {
 }
 
 
-
 export function textBound(context, param) {
 
 
-    
     const config = Object.assign({
         text: "",
         x: 0,
@@ -306,19 +285,17 @@ export function textBound(context, param) {
     const fontFamily = !config.fontFamily ? 'Arial' : config.fontFamily;
     let font = `${config.fontSize}px ${fontFamily}`;
 
-    
+
     if (config.bold) {
         font = "bold " + font;
     }
 
-    
+
     if (config.italic) {
         font = "italic " + font;
     }
 
 
-    
-    
     context.save(false);
     context.font = font;
     context.textAlign = config.textAlign;
@@ -326,59 +303,53 @@ export function textBound(context, param) {
     context.fillStyle = config.textColor;
 
 
-    
     const lines = config.text.split("\n");
-    const bound = {x: null, y: null, w: null, h: null}; 
+    const bound = {x: null, y: null, w: null, h: null};
 
 
-    
     let width = 0;
     let height = 0;
 
 
-    
     if (config.direction === 'vertical') {
 
-        
+
         for (let i = 0; i < lines.length; i++) {
 
-            let line = lines[i]; 
+            let line = lines[i];
 
             let words = line.split("");
-            let _width = 0; 
+            let _width = 0;
             let _height = 0;
 
 
-            
-            
             for (let i = 0; i < words.length; i++) {
 
-                
+
                 let textMetrics = context.measureText(words[i]);
 
-                
+
                 if (textMetrics.width > _width) {
                     _width = textMetrics.width;
                 }
 
-                _height += config.fontSize; 
+                _height += config.fontSize;
 
 
-                
                 if (i > 0) {
                     _height += config.spacingTop;
                 }
             }
 
-            
+
             width += _width
 
-            
+
             if (i > 0) {
                 width += config.spacingLeft;
             }
 
-            
+
             if (_height > height) {
                 height = _height;
             }
@@ -387,23 +358,23 @@ export function textBound(context, param) {
 
     } else {
 
-        
+
         for (let i = 0; i < lines.length; i++) {
 
-            let line = lines[i]; 
+            let line = lines[i];
 
             let words = line.split("");
-            let _width = 0; 
+            let _width = 0;
 
-            
+
             for (let i = 0; i < words.length; i++) {
 
-                
+
                 let textMetrics = context.measureText(words[i]);
 
                 _width += textMetrics.width
 
-                
+
                 if (i > 0) {
                     _width += config.spacingLeft;
                 }
@@ -412,12 +383,12 @@ export function textBound(context, param) {
 
             height += config.fontSize
 
-            
+
             if (i > 0) {
                 height += config.spacingTop;
             }
 
-            
+
             if (_width > width) {
                 width = _width;
             }
@@ -426,7 +397,6 @@ export function textBound(context, param) {
     }
 
 
-    
     bound.y = config.y - (height / 2) - config.padding.top;
     bound.h = height + config.padding.top + config.padding.bottom;
     bound.x = config.x - (width / 2) - config.padding.left;

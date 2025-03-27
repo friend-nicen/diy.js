@@ -1,29 +1,24 @@
-
-
-
-
 export function renameProperty(obj, oldProp, newProp) {
-    
+
     if (obj.hasOwnProperty(oldProp)) {
-        
+
         const prop = obj[oldProp];
-        
+
         delete obj[oldProp];
-        
+
         obj[newProp] = prop;
     }
 }
 
 
-
 export function moveElem(arr, element, index) {
 
-    
+
     if (arr.length === 0) {
         return false;
     }
 
-    
+
     if (!arr.includes(element)) {
         return false;
     }
@@ -33,7 +28,7 @@ export function moveElem(arr, element, index) {
 
     index = Math.max(0, Math.min(index, maxIndex));
 
-    
+
     if (currentIndex === index) {
         return false;
     }
@@ -45,9 +40,8 @@ export function moveElem(arr, element, index) {
 }
 
 
-
 export function getPosOfEvent(ev) {
-    
+
     if ("touches" in ev && ev.touches) {
         const posi = [];
         let src = null;
@@ -60,8 +54,7 @@ export function getPosOfEvent(ev) {
             });
         }
         return posi;
-    } 
-    else {
+    } else {
         return [{
             x: ev.x,
             y: ev.y
@@ -71,7 +64,7 @@ export function getPosOfEvent(ev) {
 
 
 export function getEnd(ev) {
-    
+
     if ("changedTouches" in ev && ev.changedTouches) {
         const posi = [];
         let src = null;
@@ -84,8 +77,7 @@ export function getEnd(ev) {
             });
         }
         return posi;
-    } 
-    else {
+    } else {
         return [{
             x: ev.x,
             y: ev.y
@@ -94,18 +86,16 @@ export function getEnd(ev) {
 }
 
 
-
-
 export function chooseFile() {
     return new Promise((resolve) => {
 
-        
+
         if (!window.chooseFileInput) {
             window.chooseFileInput = document.createElement('input');
-            window.chooseFileInput.type = 'file'; 
+            window.chooseFileInput.type = 'file';
         }
 
-        window.chooseFileInput.value = ""; 
+        window.chooseFileInput.value = "";
         const input = window.chooseFileInput;
 
 
@@ -125,30 +115,29 @@ export function chooseFile() {
 }
 
 
-
 export function loadImage(url, callback, error = null, cache = true) {
 
-    
+
     if (!window.hasImage) {
         window.hasImage = Object.create(null);
     }
 
-    
+
     if (cache && Object.keys(window.hasImage).indexOf(url) > -1) {
         callback(window.hasImage[url]);
         return;
     }
 
-    
+
     const image = new window.Image();
-    image.crossOrigin = 'anonymous'; 
-    image.src = url; 
+    image.crossOrigin = 'anonymous';
+    image.src = url;
     image.style.display = "none";
 
-    
+
     image.onload = () => {
 
-        
+
         if (cache) {
             window.hasImage[url] = image;
         }
@@ -159,7 +148,7 @@ export function loadImage(url, callback, error = null, cache = true) {
 
     };
 
-    
+
     image.onerror = () => {
         console.warn(url + "图片加载失败！");
         if (error) {
@@ -167,7 +156,6 @@ export function loadImage(url, callback, error = null, cache = true) {
         }
     }
 }
-
 
 
 export function downloadBlob(blob, fileName) {
@@ -180,14 +168,12 @@ export function downloadBlob(blob, fileName) {
 }
 
 
-
 export function delay(callback, time) {
     let timer = setTimeout(() => {
         clearTimeout(timer);
         callback();
     }, time);
 }
-
 
 
 export function throttle(cb, wait = 3000) {
@@ -200,7 +186,6 @@ export function throttle(cb, wait = 3000) {
         }
     }
 }
-
 
 
 export function debounce(func, wait, immediate) {
@@ -223,13 +208,11 @@ export function debounce(func, wait, immediate) {
 }
 
 
-
-
 export function cloneDeep(obj, config = {}) {
 
-    const type = typeof obj; 
+    const type = typeof obj;
 
-    
+
     if (obj === null || type !== 'object') {
         return obj;
     }
@@ -237,7 +220,7 @@ export function cloneDeep(obj, config = {}) {
     const clonedObj = Array.isArray(obj) ? [] : {};
 
     for (const key in obj) {
-        
+
         if (typeof obj[key] !== 'function') {
 
             if (!!obj[key] && !!obj[key].props) {
