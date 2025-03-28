@@ -382,9 +382,7 @@ export default {
         this.draw(false);
         this.bindContext(context);
 
-
         this.blendMode = blendMode;
-
 
         const imageData = offContext.getImageData(0, 0, Math.round(bound._w), Math.round(bound._h));
 
@@ -397,7 +395,7 @@ export default {
 
         for (let y = 0; y < bound._h; y++) {
             for (let x = 0; x < bound._w; x++) {
-                const index = (y * bound._w + x) * 4;
+                const index = Math.floor((y * bound._w + x) * 4);
                 const alpha = imageData.data[index + 3];
                 if (alpha > 0) {
                     minX = Math.min(minX, x);

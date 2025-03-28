@@ -104,7 +104,7 @@ export default {
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
 
-                const index = (y * width + x) * 4;
+                const index = Math.floor((y * width + x) * 4);
                 const alpha = imageData.data[index + 3];
 
                 if (alpha > 0) {
