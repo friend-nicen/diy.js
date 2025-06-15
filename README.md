@@ -15,7 +15,40 @@ npm install @friend_nicen/diyjs
 
 ## 项目展示
 
-* 基于diy.js开发的图形编辑器：[https://diy.nicen.cn](https://diy.nicen.cn)
+基于diyjs开发的一些项目
+
+### DIY制作手机壳
+
+![DIY手机壳](./example/3.jpg "DIY手机壳")
+
+小程序：<https://diy.nicen.cn/qr?shop=32106>
+
+Saas商户：<https://diy.nicen.cn/trial?as=user>
+
+Saas管理员：<https://diy.nicen.cn/trial?as=saas>
+
+> 小程序支持多应用，且单个应用支持多商户，支持Saas服务或独立部署。如您有意向或需要定制开发，请联系wx good7341
+
+### 商品案例
+
+* DIY手机壳：<https://diy.nicen.cn/?style=1227>
+* DIY T恤：<https://diy.nicen.cn/?style=95>
+* DIY包包：<https://diy.nicen.cn/?style=89>
+  ...
+### 作品展示
+
+* 精美手机壳：<https://diy.nicen.cn/?project=87>
+* 傻萌抱枕：<https://diy.nicen.cn/?project=84>
+* 时尚T恤：<https://diy.nicen.cn/?project=66>
+
+### 多语言支持
+
+* 英语：<https://diy.nicen.cn/shop/32106/en>
+* 韩语：<https://diy.nicen.cn/shop/32106/kn>
+* 越南语：<https://diy.nicen.cn/shop/32106/vi>
+* 泰国：<https://diy.nicen.cn/shop/32106/th>
+* 菲律宾：<https://diy.nicen.cn/shop/32106/tl>
+* 印尼语：<https://diy.nicen.cn/shop/32106/id>
 
 ## License
 
