@@ -559,8 +559,8 @@ export default {
     getCenterPoint() {
         const bound = this.bound();
         return {
-            x: this._offset.x + bound._w / 2,
-            y: this._offset.y + bound._h / 2
+            x: bound._w / 2,
+            y: bound._h / 2
         }
     }
     ,
