@@ -55,7 +55,7 @@ class Stage {
             _clicked: null,
             _actived: null,
             _isMoving: false,
-            _dpr: window.devicePixelRatio,
+            _dpr: window.devicePixelRatio < 1 ? 1 : window.devicePixelRatio, //屏幕的Dpr值
 
 
             _startOffset: null,
