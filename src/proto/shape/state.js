@@ -412,12 +412,12 @@ export default {
         return {
             _x: toFixedNumber(minX, 3),
             _y: toFixedNumber(minY, 3),
-            _w: toFixedNumber((maxX - minX), 3),
-            _h: toFixedNumber((maxY - minY), 3),
+            _w: toFixedNumber((maxX - minX + 1), 3),
+            _h: toFixedNumber((maxY - minY + 1), 3),
             x: toFixedNumber((minX * drp), 3),
             y: toFixedNumber((minY * drp), 3),
-            w: toFixedNumber(((maxX - minX) * drp), 3),
-            h: toFixedNumber(((maxY - minY) * drp), 3)
+            w: toFixedNumber(((maxX - minX + 1) * drp), 3),
+            h: toFixedNumber(((maxY - minY + 1) * drp), 3)
         }
 
     }

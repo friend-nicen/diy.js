@@ -120,23 +120,23 @@ export default {
             return {
                 x: minX,
                 y: minY,
-                w: (maxX - minX),
-                h: (maxY - minY),
+                w: (maxX - minX + 1),
+                h: (maxY - minY + 1),
                 _x: Math.floor(minX * drp),
                 _y: Math.floor(minY * drp),
-                _w: Math.round((maxX - minX) * drp),
-                _h: Math.round((maxY - minY) * drp)
+                _w: Math.round((maxX - minX + 1) * drp),
+                _h: Math.round((maxY - minY + 1) * drp)
             }
         } else {
             return {
                 _x: minX,
                 _y: minY,
-                _w: (maxX - minX),
-                _h: (maxY - minY),
+                _w: (maxX - minX + 1),
+                _h: (maxY - minY + 1),
                 x: Math.floor(minX * drp),
                 y: Math.floor(minY * drp),
-                w: Math.round((maxX - minX) * drp),
-                h: Math.round((maxY - minY) * drp)
+                w: Math.round((maxX - minX + 1) * drp),
+                h: Math.round((maxY - minY + 1) * drp)
             }
         }
     },
